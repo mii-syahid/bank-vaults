@@ -159,10 +159,10 @@ spec:
             crl_distribution_points: https://vault.vault-infra:8200/v1/pki/crl
           root/generate:
           - name: internal
-            common_name: vault.default
+            common_name: vault.vault-infra
           roles:
           - name: default
-            allowed_domains: localhost,pod,svc,default
+            allowed_domains: localhost,pod,svc,default,vault-infra
             allow_subdomains: true
             generate_lease: true
             ttl: 1m
