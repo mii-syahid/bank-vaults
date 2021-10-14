@@ -136,7 +136,7 @@ spec:
           # Allow every pod in the default namespace to use the secret kv store
           - name: default
             bound_service_account_names: ["default", "vault-secrets-webhook", "vault"]
-            bound_service_account_namespaces: ["default", "vswh"]
+            bound_service_account_namespaces: ["default", "vswh", "brimo"]
             policies: ["allow_secrets", "allow_pki"]
             ttl: 1h
 
@@ -155,14 +155,14 @@ spec:
         configuration:
           config:
           - name: urls
-            issuing_certificates: https://vault.vault-infra:8200/v1/pki/ca
-            crl_distribution_points: https://vault.vault-infra:8200/v1/pki/crl
+            issuing_certificates: https://vault.default:8200/v1/pki/ca
+            crl_distribution_points: https://vault.default:8200/v1/pki/crl
           root/generate:
           - name: internal
-            common_name: vault.vault-infra
+            common_name: vault.default
           roles:
           - name: default
-            allowed_domains: localhost,pod,svc,default,vault-infra
+            allowed_domains: localhost,pod,svc,default
             allow_subdomains: true
             generate_lease: true
             ttl: 1m
